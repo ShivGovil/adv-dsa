@@ -2,6 +2,6 @@
 #include <iostream>
 
 int main() {
-    // Add your code here
-    return 0;
+  // Add your code here
+  return 0;
 }
