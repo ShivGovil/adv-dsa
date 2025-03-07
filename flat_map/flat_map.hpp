@@ -1,5 +1,5 @@
-#ifndef swiss_table_HPP
-#define swiss_table_HPP
+#ifndef flat_map_HPP
+#define flat_map_HPP
 
 #include <cstdint>
 #include <cfloat>
@@ -54,4 +54,4 @@ class flat_map {
 
 };
 
-#endif // swiss_table_HPP
+#endif // flat_map_HPP
