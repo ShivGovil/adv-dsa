@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-I/usr/include/xxhash, -I/usr/local/include]
