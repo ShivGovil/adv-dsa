@@ -1,3 +1,5 @@
+// Taken from Traders at Michigan segment tree implementation
+
 #include "seg_tree.hpp"
 #include <iostream>
 #include <numeric>
