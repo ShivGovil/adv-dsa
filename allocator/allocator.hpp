@@ -1,1 +1,5 @@
 #include <memory>
+
+class allocator {
+
+};
