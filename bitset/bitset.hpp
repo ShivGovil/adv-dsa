@@ -174,7 +174,7 @@ public:
   [[nodiscard]] bool test(const size_t &bit) const {
     assert(bit < n_bits);
     return data[chunk_index(bit)] &
-            (static_cast<chunk>(1) << bit_index(bit));
+    (static_cast<chunk>(1) << bit_index(bit));
   }
 
   void flip(const size_t &bit) {
@@ -212,7 +212,7 @@ public:
   void reset() {
     std::memset(data, 0, n_chunks * sizeof(chunk));
   }
-  
+
   bool all() {
     for (size_t c = 0; c < n_chunks; ++c) {
       if (data[c] != CHUNK_MAX) return false;
