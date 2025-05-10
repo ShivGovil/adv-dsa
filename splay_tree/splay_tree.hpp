@@ -1,5 +1,4 @@
-#ifndef splay_tree_HPP
-#define splay_tree_HPP
+#pragma once
 
 #include <memory>
 template <typename K, typename V>
@@ -39,5 +38,3 @@ class splay_tree {
 
     std::shared_ptr<node> root;
 };
-
-#endif
