@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <functional>
 
+namespace shiv {
+
 template <typename T, typename Comp = std::less<T>>
 class splay_tree {
   struct node {
@@ -37,8 +39,10 @@ public:
   node* join(node *first, node *second);
   std::pair<node*, node*> split(node *root);
   
-  const T& maximum(const T &key) const { return max_in_tree(key)->val; }
-  const T& minimum(const T &key) const { return min_in_tree(key)->val; }
+  const T& maximum() const { return max_in_tree(root)->val; }
+  const T& minimum() const { return min_in_tree(root)->val; }
   size_t size() { return sz; }
   bool empty() { return !root; }
 };
+
+} // namespace shiv
