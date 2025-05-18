@@ -25,7 +25,13 @@ class splay_tree {
     return root;
   }
 
-  void rotate_left(node *x);
+  void rotate_left(node *x) {
+    node *left = x->left;
+    x->left = x->parent;
+    x->parent->right = left;
+    // parent becomes x's left
+    // parent gets x's left
+  }
   void rotate_right(node *x);
 
   void replace(node *x, node *y);
