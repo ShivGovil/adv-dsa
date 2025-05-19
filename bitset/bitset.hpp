@@ -9,6 +9,7 @@
 
 namespace shiv {
 // TODO: Binary operators + equality
+// This is awesome
 
 using chunk = uint32_t; // To use __builtin_popcount()
 constexpr chunk CHUNK_MAX = static_cast<chunk>(-1);
