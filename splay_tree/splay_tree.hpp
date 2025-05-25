@@ -7,12 +7,14 @@ namespace shiv {
 
 template <typename T, typename Comp = std::less<T>>
 class splay_tree {
+  Comp comp;
+
   struct node {
     T key;
     node *left, *right, *parent;
   };
 
-  node *root;
+  node *root{};
   size_t sz{};
 
   void destroy_nodes(node *root) {
@@ -99,8 +101,12 @@ public:
 
     while (r) {
       seek = r;
-      if (Comp(r->key, key)) r = r->right;
-      else r = r->left;
+      if (comp(r->key, key)) r = r->right;
+      else if (comp(key, r->key)) r = r->left;
+      else {
+        splay(r);
+        return;
+      }
     }
 
     r = new node{.key = key};
@@ -108,7 +114,7 @@ public:
 
     if (!seek) {
       root = r;
-    } else if (Comp(seek->key, r->key)) {
+    } else if (comp(seek->key, r->key)) {
       seek->right = r;
     } else {
       seek->left = r;
@@ -121,8 +127,8 @@ public:
   node* find(const T &key) {
     node *seek = root;
     while (seek) {
-      if (Comp(seek->key, key)) seek = seek->right;
-      else if (Comp(key, seek->key)) seek = seek->left;
+      if (comp(seek->key, key)) seek = seek->right;
+      else if (comp(key, seek->key)) seek = seek->left;
       else return seek;
     }
     return nullptr;
@@ -162,7 +168,7 @@ public:
   const T& maximum() const { return max_in_tree(root)->val; }
   const T& minimum() const { return min_in_tree(root)->val; }
   [[nodiscard]] size_t size() const { return sz; }
-  [[nodiscard]] bool empty() const { return !root; }
+  [[nodiscard]] bool empty() const { return !sz; }
 
   ~splay_tree() { destroy_nodes(root); }
 };
