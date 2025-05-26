@@ -25,12 +25,12 @@ class splay_tree {
   }
 
   node* min_in_tree(node *root) {
-    while (root) root = root->left;
+    while (root && root->left) root = root->left;
     return root;
   }
   
   node* max_in_tree(node *root) {
-    while (root) root = root->right;
+    while (root && root->right) root = root->right;
     return root;
   }
 
@@ -143,26 +143,25 @@ public:
     node *left = k->left;
     node *right = k->right;
     delete k;
+    --sz;
 
     // Join
-    node *left_max{};
-    if (left) {
+    if (!left && !right) {
+      root = nullptr;
+    } else if (!left) {
+      root = right;
+      right->parent = nullptr;
+    } else if (!right) {
+      root = left;
       left->parent = nullptr;
-      left_max = max_in_tree(left);
+    } else {
+      left->parent = nullptr;
+      node *left_max = max_in_tree(left);
       splay(left_max);
       root = left_max;
-    }
-
-    if (right) {
-      if (left) {
-        left_max->right = right;
-      } else {
-        root = right;
-      }
+      left_max->right = right;
       right->parent = left_max;
     }
-
-    --sz;
   }
 
   const T& maximum() const { return max_in_tree(root)->val; }
