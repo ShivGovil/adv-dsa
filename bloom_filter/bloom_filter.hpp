@@ -1,15 +1,14 @@
 #pragma once
 
-#include <concepts>
-#include <type_traits>
+#include <iostream>
+#include <xxhash.h>
 
 namespace shiv {
 
 class bloom_filter {
 
 public:
-  bloom_filter();
-  ~bloom_filter();
+  bloom_filter() { std::cout << "hi"; }
 };
 
 }
