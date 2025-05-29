@@ -28,13 +28,22 @@ class red_black_tree {
     delete root;
   }
 
+  void rotate_right() {}
+
+  void rotate_left() {}
+
+  void fix_insert(node *x) {}
+
 public:
   red_black_tree() = default;
   ~red_black_tree() { delete_nodes(root); }
 
   void insert(const T &key) {}
+
   void erase(const T &key) {}
+
   node* find(const T &key) {}
+
   void clear() {
     delete_nodes(root);
     root = nullptr;
