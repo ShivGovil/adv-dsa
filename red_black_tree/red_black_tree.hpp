@@ -19,7 +19,7 @@ class red_black_tree {
     T key;
   };
 
-  node *root;
+  node *root{};
 
   void delete_nodes(node *root) {
     if (!root) return;
