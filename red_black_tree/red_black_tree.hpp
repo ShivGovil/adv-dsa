@@ -2,39 +2,44 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 
 namespace shiv {
 
-enum class Color : uint8_t {
+enum class color : uint8_t {
   BLACK = 0,
   RED = 1
-};
-
-enum class Direction : uint8_t {
-  LEFT = 0,
-  RIGHT = 1
 };
 
 template<typename T>
 class red_black_tree {
   struct node {
-    node *parent;
-
-    union {
-      struct {
-        node *left, *right;
-      } lr;
-      node *child[2];
-    } children;
-
-    Color color;
-    T val;
+    node *parent, *left, *right;
+    color c;
+    T key;
   };
 
+  node *root;
 
-  public:
-    red_black_tree();
-    ~red_black_tree();
+  void delete_nodes(node *root) {
+    if (!root) return;
+    delete_nodes(root->children.lr.left);
+    delete_nodes(root->children.lr.right);
+    delete root;
+  }
+
+public:
+  red_black_tree() = default;
+  ~red_black_tree() { delete_nodes(root); }
+
+  void insert(const T &key) {}
+  void erase(const T &key) {}
+  node* find(const T &key) {}
+  void clear() {
+    delete_nodes(root);
+    root = nullptr;
+  }
+
 };
 
 } // namespace
