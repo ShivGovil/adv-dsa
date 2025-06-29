@@ -1,5 +1,5 @@
 bloom:
-	g++ -std=c++23 main.cpp -o bloom.o
+	g++ -std=c++23 main.cpp -lxxhash -o bloom
 
 clean:
-	rm -rf *.dSYM *.DS_Store *.o
+	rm -rf *.dSYM *.DS_Store *.o bloom
