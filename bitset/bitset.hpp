@@ -248,6 +248,38 @@ public:
     }
   }
 
+  void resize(size_t new_size) {
+    if (new_size == n_bits) return;
+
+    size_t new_n_chunks = (new_size + BITS_PER_CHUNK - 1) / BITS_PER_CHUNK;
+
+    if (new_n_chunks != n_chunks) {
+      auto new_data = new chunk[new_n_chunks]{};
+
+      // Find minimum as we could be shrinking
+      size_t chunks_to_copy = (n_chunks < new_n_chunks) ? n_chunks : new_n_chunks;
+      if (data && chunks_to_copy > 0) {
+        memcpy(new_data, data, chunks_to_copy * sizeof(chunk));
+      }
+
+      delete[] data;
+      data = new_data;
+      n_chunks = new_n_chunks;
+    }
+
+    n_bits = new_size;
+
+    // If we're shrinking within the same number of chunks, clear unused bits
+    if (new_size > 0 && new_n_chunks == n_chunks && new_size < (n_chunks * BITS_PER_CHUNK)) {
+      size_t last_chunk_idx = (new_size - 1) / BITS_PER_CHUNK;
+      size_t bits_in_last_chunk = ((new_size - 1) % BITS_PER_CHUNK) + 1;
+
+      if (bits_in_last_chunk < BITS_PER_CHUNK) {
+        chunk mask = (static_cast<chunk>(1) << bits_in_last_chunk) - 1;
+        data[last_chunk_idx] &= mask;
+      }
+    }
+  }
 };
 
 inline bitset operator<<(bitset lhs, size_t shift) {
